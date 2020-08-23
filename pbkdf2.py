@@ -1,12 +1,14 @@
-import os, binascii
+import binascii
 from backports.pbkdf2 import pbkdf2_hmac
 from random import choice
 import string
+
 
 def generate_derivation(password):
     slt = binascii.unhexlify(''.join([choice(string.hexdigits) for x in range(32)]))
     key = pbkdf2_hmac('sha256', str.encode(password), slt, 100000, 32)
     return binascii.hexlify(key).decode('utf-8')
+
 
 if __name__ == '__main__':
     print('Bienvenido al programa')
